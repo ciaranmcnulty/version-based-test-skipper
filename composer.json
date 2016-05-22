@@ -1,4 +1,6 @@
 {
+
+    "name": "ciaranmcnulty/versionbasedtestskipper",
     "description": "Skip Behat scenarios based on PHP version",
     "require": {
         "php" : "~5.4",
