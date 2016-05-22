@@ -6,8 +6,12 @@ final class Version
 {
     private $string;
 
-    private function __construct()
+    private function __construct($string)
     {
+        if (preg_match('/^(?<version>[.0-9]+)/', $string, $matches)) {
+            $string = $matches['version'];
+        }
+        $this->string = $string;
     }
 
     /**
@@ -17,10 +21,7 @@ final class Version
      */
     public static function fromString($string)
     {
-        $version = new Version();
-        $version->string = $string;
-
-        return $version;
+        return new Version($string);
     }
 
     public function asString()

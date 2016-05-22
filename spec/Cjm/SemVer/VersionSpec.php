@@ -12,4 +12,10 @@ class VersionSpec extends ObjectBehavior
         $this->beConstructedFromString('5.6.1');
         $this->asString()->shouldReturn('5.6.1');
     }
+
+    function it_can_parse_out_suffixes()
+    {
+        $this->beConstructedFromString('5.6.1-hhvm');
+        $this->asString()->shouldReturn('5.6.1');
+    }
 }
