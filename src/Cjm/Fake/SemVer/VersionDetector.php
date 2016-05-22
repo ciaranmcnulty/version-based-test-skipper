@@ -6,7 +6,7 @@ namespace Cjm\Fake\SemVer;
 use Cjm\SemVer\Version;
 use Cjm\SemVer\VersionDetector as VersionDetectorInterface;
 
-class VersionDetector implements VersionDetectorInterface
+final class VersionDetector implements VersionDetectorInterface
 {
     /**
      * @var Version

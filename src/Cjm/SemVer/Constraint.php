@@ -2,7 +2,7 @@
 
 namespace Cjm\SemVer;
 
-class Constraint
+final class Constraint
 {
     private $string;
 

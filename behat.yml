@@ -2,3 +2,5 @@ default:
   suites:
     core:
       contexts: [ CoreContext ]
+    behatscenario:
+      contexts: [ Behat\ScenarioContext ]

@@ -11,4 +11,3 @@ Feature: Skipping tests based on tags
     And the current version of PHP is "5.7.1"
     When I run the tests
     Then the test should be skipped
-

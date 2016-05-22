@@ -6,7 +6,7 @@ use Cjm\SemVer\Constraint;
 use Cjm\SemVer\ConstraintMatcher as ConstraintMatcherInterface;
 use Cjm\SemVer\Version;
 
-class ConstraintMatcher implements ConstraintMatcherInterface
+final class ConstraintMatcher implements ConstraintMatcherInterface
 {
     /**
      * @return boolean
