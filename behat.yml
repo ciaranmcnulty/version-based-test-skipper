@@ -1,6 +1,24 @@
 default:
+  gherkin:
+    filters:
+      tags: "~@end-to-end"
   suites:
     core:
       contexts: [ CoreContext ]
-    behatscenario:
+    behat-scenario:
       contexts: [ Behat\ScenarioContext ]
+    behat-endtoend:
+      contexts: [ Behat\EndToEndContext ]
+
+endtoend:
+  gherkin:
+    filters:
+      tags: "@end-to-end"
+  suites:
+    core: false
+    behat-scenario: false
+    behat-endtoend: false
+    behat-endtoend-sample:
+      contexts: [ Behat\EndToEndContext ]
+  extensions:
+    Cjm\Behat\VersionBasedTestSkipperExtension: ~
