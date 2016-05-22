@@ -10,25 +10,25 @@ final class TestMatcher
     /**
      * @var VersionDetector
      */
-    private $phpVersionDetector;
+    private $versionDetector;
     /**
      * @var ConstraintMatcher
      */
     private $constraintMatcher;
 
-    public function __construct(VersionDetector $phpVersionDetector, ConstraintMatcher $constraintMatcher)
+    public function __construct(VersionDetector $versionDetector, ConstraintMatcher $constraintMatcher)
     {
-        $this->phpVersionDetector = $phpVersionDetector;
+        $this->versionDetector = $versionDetector;
         $this->constraintMatcher = $constraintMatcher;
     }
 
     /**
      * @return bool
      */
-    public function matches(Test $scenario)
+    public function matches(Test $test)
     {
-        foreach ($scenario->getConstraints() as $constraint) {
-            if (!$this->constraintMatcher->match($constraint, $this->phpVersionDetector->getVersion())) {
+        foreach ($test->getConstraints() as $constraint) {
+            if (!$this->constraintMatcher->match($constraint, $this->versionDetector->getVersion())) {
                 return false;
             }
         }

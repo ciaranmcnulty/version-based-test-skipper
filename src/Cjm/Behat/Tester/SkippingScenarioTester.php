@@ -12,6 +12,9 @@ use Behat\Testwork\Tester\Setup\Teardown;
 use Cjm\SemVer\Constraint;
 use Cjm\SemVer\ConstraintMatcher;
 use Cjm\SemVer\VersionDetector;
+use Cjm\Testing\SemVer\Tag;
+use Cjm\Testing\SemVer\Test;
+use Cjm\Testing\SemVer\TestMatcher;
 
 final class SkippingScenarioTester implements ScenarioTester
 {
@@ -21,20 +24,14 @@ final class SkippingScenarioTester implements ScenarioTester
     private $inner;
 
     /**
-     * @var VersionDetector
+     * @var TestMatcher
      */
-    private $versionDetector;
+    private $matcher;
 
-    /**
-     * @var ConstraintMatcher
-     */
-    private $constraintMatcher;
-
-    public function __construct(ScenarioTester $inner, VersionDetector $versionDetector, ConstraintMatcher $constraintMatcher)
+    public function __construct(ScenarioTester $inner, TestMatcher $matcher)
     {
         $this->inner = $inner;
-        $this->versionDetector = $versionDetector;
-        $this->constraintMatcher = $constraintMatcher;
+        $this->matcher = $matcher;
     }
 
     /**
@@ -66,19 +63,14 @@ final class SkippingScenarioTester implements ScenarioTester
      */
     private function shouldSkip($skip, Scenario $scenario)
     {
-        $version = $this->versionDetector->getVersion();
+        $test = Test::taggedWith(
+            array_map(
+                function($string) {
+                    return Tag::fromString($string);
+                } , $scenario->getTags()
+            )
+        );
 
-        foreach ($scenario->getTags() as $tag) {
-
-            if (preg_match('/php:(?<constraint>.*)/', $tag, $matches)) {
-                $constraint = Constraint::fromString($matches['constraint']);
-
-                if (!$this->constraintMatcher->match($constraint, $version)) {
-                    return true;
-                }
-            }
-        }
-
-        return $skip;
+        return $skip || !$this->matcher->matches($test);
     }
 }

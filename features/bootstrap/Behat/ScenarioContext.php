@@ -17,6 +17,7 @@ use Cjm\Composer\ConstraintMatcher;
 use Cjm\Fake\Behat\ScenarioTester;
 use Cjm\Php\VersionDetector;
 use Cjm\SemVer\Version;
+use Cjm\Testing\SemVer\TestMatcher;
 use Composer\Semver\Semver;
 
 /**
@@ -54,8 +55,10 @@ class ScenarioContext implements Context, SnippetAcceptingContext
     {
         $this->tester = new SkippingScenarioTester(
             new ScenarioTester(),
-            new VersionDetector(),
-            new ConstraintMatcher(new Semver())
+            new TestMatcher(
+                new VersionDetector(),
+                new ConstraintMatcher(new Semver())
+            )
         );
     }
 

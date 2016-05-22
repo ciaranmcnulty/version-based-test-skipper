@@ -13,6 +13,7 @@ use Behat\Testwork\Tester\Setup\Teardown;
 use Cjm\SemVer\ConstraintMatcher;
 use Cjm\SemVer\Version;
 use Cjm\SemVer\VersionDetector;
+use Cjm\Testing\SemVer\TestMatcher;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -23,7 +24,8 @@ class SkippingScenarioTesterSpec extends ObjectBehavior
         ScenarioInterface $scenario
     )
     {
-        $this->beConstructedWith($inner, $versionDetector, $constraintMatcher);
+        $testMatcher = new TestMatcher($versionDetector->getWrappedObject(), $constraintMatcher->getWrappedObject());
+        $this->beConstructedWith($inner, $testMatcher);
 
         $versionDetector->getVersion()->willReturn(Version::fromString('5.6.0'));
 

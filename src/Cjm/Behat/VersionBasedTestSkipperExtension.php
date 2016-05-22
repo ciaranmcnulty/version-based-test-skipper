@@ -7,6 +7,7 @@ use Behat\Testwork\ServiceContainer\ExtensionManager;
 use Cjm\Behat\Tester\SkippingScenarioTester;
 use Cjm\Composer\ConstraintMatcher;
 use Cjm\Php\VersionDetector;
+use Cjm\Testing\SemVer\TestMatcher;
 use Composer\Semver\Semver;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -49,6 +50,13 @@ class VersionBasedTestSkipperExtension implements Extension
             SkippingScenarioTester::class,
             [
                 new Reference('versionbasedtestskipper.tester.scenario.inner'),
+                new Reference('versionbasedtestskipper.testmatcher')
+            ]
+        ));
+
+        $container->setDefinition('versionbasedtestskipper.testmatcher', new Definition(
+            TestMatcher::class,
+            [
                 new Reference('versionbasedtestskipper.versiondetector'),
                 new Reference('versionbasedtestskipper.constraintmatcher')
             ]
