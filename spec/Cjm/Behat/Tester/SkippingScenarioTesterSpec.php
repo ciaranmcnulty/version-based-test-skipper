@@ -8,7 +8,6 @@ use Behat\Gherkin\Node\ScenarioInterface;
 use Behat\Testwork\Environment\Environment;
 use Behat\Testwork\Tester\Result\TestResult;
 use Behat\Testwork\Tester\Setup\Setup;
-use Behat\Testwork\Tester\Setup\SuccessfulSetup;
 use Behat\Testwork\Tester\Setup\Teardown;
 use Cjm\SemVer\ConstraintMatcher;
 use Cjm\SemVer\Version;
@@ -34,7 +33,7 @@ class SkippingScenarioTesterSpec extends ObjectBehavior
 
     function it_is_a_scenario_tester()
     {
-        $this->shouldHaveType(ScenarioTester::class);
+        $this->shouldHaveType('Behat\Behat\Tester\ScenarioTester');
     }
 
     function it_passes_through_result_of_setup_when_versions_match(

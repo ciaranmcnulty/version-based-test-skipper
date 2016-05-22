@@ -3,14 +3,13 @@
 namespace Cjm\Composer;
 
 use Cjm\SemVer\Constraint;
-use Cjm\SemVer\ConstraintMatcher as ConstraintMatcherInterface;
 use Cjm\SemVer\Version;
 use Composer\Semver\Semver;
 
 class ConstraintMatcherTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var ConstraintMatcherInterface
+     * @var \Cjm\SemVer\ConstraintMatcher
      */
     private $constraintMatcher;
 
@@ -21,7 +20,7 @@ class ConstraintMatcherTest extends \PHPUnit_Framework_TestCase
 
     public function testItIsAConstraintMatcher()
     {
-        $this->assertInstanceOf(ConstraintMatcherInterface::class, $this->constraintMatcher);
+        $this->assertInstanceOf('Cjm\SemVer\ConstraintMatcher', $this->constraintMatcher);
     }
 
     public function testItMatchesASimpleCase()

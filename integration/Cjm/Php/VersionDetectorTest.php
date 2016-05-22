@@ -3,12 +3,11 @@
 namespace Cjm\Php;
 
 use Cjm\SemVer\Version;
-use Cjm\SemVer\VersionDetector as VersionDetectorInterface;
 
 class VersionDetectorTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var VersionDetectorInterface
+     * @var \Cjm\SemVer\VersionDetector
      */
     private $versionDetector;
 
@@ -19,7 +18,7 @@ class VersionDetectorTest extends \PHPUnit_Framework_TestCase
 
     public function testItIsAVersionDetector()
     {
-        $this->assertInstanceOf(VersionDetectorInterface::class, $this->versionDetector);
+        $this->assertInstanceOf('Cjm\SemVer\VersionDetector', $this->versionDetector);
     }
 
     public function testItReturnsTheCurrentPhpVersion()

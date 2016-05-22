@@ -4,11 +4,6 @@ namespace Cjm\Behat\VersionBasedtestSkipperExtension\ServiceContainer;
 
 use Behat\Testwork\ServiceContainer\Extension;
 use Behat\Testwork\ServiceContainer\ExtensionManager;
-use Cjm\Behat\Tester\SkippingScenarioTester;
-use Cjm\Composer\ConstraintMatcher;
-use Cjm\Php\VersionDetector;
-use Cjm\Testing\SemVer\TestMatcher;
-use Composer\Semver\Semver;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -47,7 +42,7 @@ class VersionBasedTestSkipperExtension implements Extension
     public function load(ContainerBuilder $container, array $config)
     {
         $container->setDefinition('versionbasedtestskipper.tester.scenario.skipping', new Definition(
-            SkippingScenarioTester::class,
+            'Cjm\Behat\Tester\SkippingScenarioTester',
             [
                 new Reference('versionbasedtestskipper.tester.scenario.inner'),
                 new Reference('versionbasedtestskipper.testmatcher')
@@ -55,7 +50,7 @@ class VersionBasedTestSkipperExtension implements Extension
         ));
 
         $container->setDefinition('versionbasedtestskipper.testmatcher', new Definition(
-            TestMatcher::class,
+            'Cjm\Testing\SemVer\TestMatcher',
             [
                 new Reference('versionbasedtestskipper.versiondetector'),
                 new Reference('versionbasedtestskipper.constraintmatcher')
@@ -63,16 +58,16 @@ class VersionBasedTestSkipperExtension implements Extension
         ));
 
         $container->setDefinition('versionbasedtestskipper.versiondetector', new Definition(
-            VersionDetector::class
+            'Cjm\Php\VersionDetector'
         ));
 
         $container->setDefinition('versionbasedtestskipper.constraintmatcher', new Definition(
-            ConstraintMatcher::class,
+            'Cjm\Composer\ConstraintMatcher',
             [ new Reference('versionbasedtestskipper.composer.semver') ]
         ));
 
         $container->setDefinition('versionbasedtestskipper.composer.semver', new Definition(
-            Semver::class
+            'Composer\Semver\Semver'
         ));
     }
 }
