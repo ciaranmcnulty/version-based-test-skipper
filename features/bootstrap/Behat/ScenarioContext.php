@@ -22,9 +22,6 @@ use Cjm\SemVer\Version;
 use Cjm\Testing\SemVer\VersionBasedTestMatcher;
 use Composer\Semver\Semver;
 
-/**
- * Defines application features from the specific context.
- */
 class ScenarioContext implements Context
 {
     private $version;

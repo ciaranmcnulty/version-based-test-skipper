@@ -21,6 +21,12 @@ class VersionBasedTestSkipperExtension implements Extension
 
         $container->setDefinition('versionbasedtestskipper.tester.scenario.inner', $scenarioTester);
         $container->setDefinition('tester.scenario', $skippingTester);
+
+        $specificationTester = $container->findDefinition('tester.specification');
+        $skippingTester = $container->findDefinition('versionbasedtestskipper.tester.specification.skipping');
+
+        $container->setDefinition('versionbasedtestskipper.tester.specification.inner', $specificationTester);
+        $container->setDefinition('tester.specification', $skippingTester);
     }
 
     public function getConfigKey()
@@ -45,6 +51,15 @@ class VersionBasedTestSkipperExtension implements Extension
             'Cjm\Behat\Tester\SkippingScenarioTester',
             [
                 new Reference('versionbasedtestskipper.tester.scenario.inner'),
+                new Reference('versionbasedtestskipper.testmatcher'),
+                new Reference('versionbasedtestskipper.testfactory')
+            ]
+        ));
+
+        $container->setDefinition('versionbasedtestskipper.tester.specification.skipping', new Definition(
+            'Cjm\Behat\Tester\SkippingFeatureTester',
+            [
+                new Reference('versionbasedtestskipper.tester.specification.inner'),
                 new Reference('versionbasedtestskipper.testmatcher'),
                 new Reference('versionbasedtestskipper.testfactory')
             ]

@@ -10,6 +10,8 @@ default:
       contexts: [ Behat\FeatureContext ]
       paths:    [ %paths.base%/features/skipping ]
     behat-scenario-endtoend:
-      contexts: [ Behat\EndToEndContext ]
+      contexts: [ Behat\EndToEndScenarioContext ]
       paths:    [ %paths.base%/features/skipping ]
-
+    behat-feature-endtoend:
+      contexts: [ Behat\EndToEndFeatureContext ]
+      paths:    [ %paths.base%/features/skipping ]

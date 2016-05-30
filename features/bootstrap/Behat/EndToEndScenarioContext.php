@@ -8,10 +8,7 @@ use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 
-/**
- * Defines application features from the specific context.
- */
-class EndToEndContext implements Context
+class EndToEndScenarioContext implements Context
 {
     private $scenario;
     private $output;
@@ -22,10 +19,10 @@ class EndToEndContext implements Context
     public function iHaveATestTagged($tag)
     {
         if ($tag == "php:~5.6") {
-            $this->scenario = 'features/end-to-end-test.feature:6';
+            $this->scenario = 'features/end-to-end-scenario-test.feature:6';
         }
         elseif ($tag == "php:~7.0") {
-            $this->scenario = 'features/end-to-end-test.feature:10';
+            $this->scenario = 'features/end-to-end-scenario-test.feature:10';
         }
         else {
             throw new \Exception('Cannot find a fixture scenario for tag ' . $tag);
