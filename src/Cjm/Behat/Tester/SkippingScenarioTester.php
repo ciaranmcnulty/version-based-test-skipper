@@ -25,6 +25,7 @@ final class SkippingScenarioTester implements ScenarioTester
      * @var TestMatcher
      */
     private $matcher;
+
     /**
      * @var TestFactory
      */
@@ -70,6 +71,6 @@ final class SkippingScenarioTester implements ScenarioTester
      */
     private function shouldSkip($skip, Scenario $scenario)
     {
-        return $skip || !$this->matcher->matches($this->testFactory->fromScenario($scenario));
+        return $skip || !$this->matcher->matches($this->testFactory->fromTaggedNode($scenario));
     }
 }
