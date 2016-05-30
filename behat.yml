@@ -1,24 +1,12 @@
 default:
-  gherkin:
-    filters:
-      tags: "~@end-to-end"
   suites:
     core:
       contexts: [ CoreContext ]
+      paths:    [ %paths.base%/features/skipping ]
     behat-scenario:
       contexts: [ Behat\ScenarioContext ]
-    behat-endtoend:
+      paths:    [ %paths.base%/features/skipping ]
+    behat-scenario-endtoend:
       contexts: [ Behat\EndToEndContext ]
+      paths:    [ %paths.base%/features/skipping ]
 
-endtoend:
-  gherkin:
-    filters:
-      tags: "@end-to-end"
-  suites:
-    core: false
-    behat-scenario: false
-    behat-endtoend: false
-    behat-endtoend-sample:
-      contexts: [ Behat\EndToEndContext ]
-  extensions:
-    Cjm\Behat\VersionBasedTestSkipperExtension: ~

@@ -11,7 +11,7 @@ use Behat\Gherkin\Node\TableNode;
 /**
  * Defines application features from the specific context.
  */
-class EndToEndContext implements Context, SnippetAcceptingContext
+class EndToEndContext implements Context
 {
     private $scenario;
     private $output;
@@ -22,10 +22,10 @@ class EndToEndContext implements Context, SnippetAcceptingContext
     public function iHaveATestTagged($tag)
     {
         if ($tag == "php:~5.6") {
-            $this->scenario = 'features/end-to-end-test.feature:7';
+            $this->scenario = 'features/end-to-end-test.feature:6';
         }
         elseif ($tag == "php:~7.0") {
-            $this->scenario = 'features/end-to-end-test.feature:11';
+            $this->scenario = 'features/end-to-end-test.feature:10';
         }
         else {
             throw new \Exception('Cannot find a fixture scenario for tag ' . $tag);
@@ -47,7 +47,7 @@ class EndToEndContext implements Context, SnippetAcceptingContext
      */
     public function iRunTheTests()
     {
-        $this->output = shell_exec('bin/behat --profile="endtoend" ' . $this->scenario);
+        $this->output = shell_exec('bin/behat -c "features/bootstrap/dummy/behat.yml" features/bootstrap/dummy/' . $this->scenario);
     }
 
     /**
@@ -68,13 +68,5 @@ class EndToEndContext implements Context, SnippetAcceptingContext
         if (!preg_match('/1 skipped/', $this->output)) {
             throw new \Exception('Test was unexpectedly not skipped');
         }
-    }
-
-    /**
-     * @When The test passes
-     */
-    public function theTestPasses()
-    {
-        // noop
     }
 }

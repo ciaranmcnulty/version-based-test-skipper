@@ -1,0 +1,6 @@
+default:
+  suites:
+    behat-endtoend-sample:
+      contexts: [ Behat\DummyContext ]
+  extensions:
+    Cjm\Behat\VersionBasedTestSkipperExtension: ~

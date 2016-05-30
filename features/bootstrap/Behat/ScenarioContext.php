@@ -23,7 +23,7 @@ use Composer\Semver\Semver;
 /**
  * Defines application features from the specific context.
  */
-class ScenarioContext implements Context, SnippetAcceptingContext
+class ScenarioContext implements Context
 {
     /**
      * @var ScenarioTester

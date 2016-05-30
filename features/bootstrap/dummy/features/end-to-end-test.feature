@@ -1,4 +1,3 @@
-@end-to-end
 Feature: End to end test
 
   This is not a real feature file - it's used in the end to end testing
