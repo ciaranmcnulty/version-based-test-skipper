@@ -18,7 +18,7 @@ default:
     Cjm\Behat\VersionBasedTestSkipperExtension: ~
 ```
 
-Use composer-style constraints to tag your scenarios:
+Use composer-style constraints to tag your scenarios or features:
 
 ```gherkin
 @php:~7.0.1
