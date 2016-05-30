@@ -9,9 +9,7 @@ use Behat\Testwork\Environment\Environment;
 use Behat\Testwork\Tester\Result\TestResult;
 use Behat\Testwork\Tester\Setup\Setup;
 use Behat\Testwork\Tester\Setup\Teardown;
-use Cjm\SemVer\Constraint;
-use Cjm\SemVer\ConstraintMatcher;
-use Cjm\SemVer\VersionDetector;
+use Cjm\Behat\TestFactory;
 use Cjm\Testing\SemVer\Tag;
 use Cjm\Testing\SemVer\Test;
 use Cjm\Testing\SemVer\TestMatcher;
@@ -27,11 +25,20 @@ final class SkippingScenarioTester implements ScenarioTester
      * @var TestMatcher
      */
     private $matcher;
+    /**
+     * @var TestFactory
+     */
+    private $testFactory;
 
-    public function __construct(ScenarioTester $inner, TestMatcher $matcher)
+    public function __construct(
+        ScenarioTester $inner,
+        TestMatcher $matcher,
+        TestFactory $testFactory
+    )
     {
         $this->inner = $inner;
         $this->matcher = $matcher;
+        $this->testFactory = $testFactory;
     }
 
     /**
@@ -63,14 +70,6 @@ final class SkippingScenarioTester implements ScenarioTester
      */
     private function shouldSkip($skip, Scenario $scenario)
     {
-        $test = Test::taggedWith(
-            array_map(
-                function($string) {
-                    return Tag::fromString($string);
-                } , $scenario->getTags()
-            )
-        );
-
-        return $skip || !$this->matcher->matches($test);
+        return $skip || !$this->matcher->matches($this->testFactory->fromScenario($scenario));
     }
 }

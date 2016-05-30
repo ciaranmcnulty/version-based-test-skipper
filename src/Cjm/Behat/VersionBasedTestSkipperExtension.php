@@ -45,16 +45,21 @@ class VersionBasedTestSkipperExtension implements Extension
             'Cjm\Behat\Tester\SkippingScenarioTester',
             [
                 new Reference('versionbasedtestskipper.tester.scenario.inner'),
-                new Reference('versionbasedtestskipper.testmatcher')
+                new Reference('versionbasedtestskipper.testmatcher'),
+                new Reference('versionbasedtestskipper.testfactory')
             ]
         ));
 
         $container->setDefinition('versionbasedtestskipper.testmatcher', new Definition(
-            'Cjm\Testing\SemVer\TestMatcher',
+            'Cjm\Testing\SemVer\VersionBasedTestMatcher',
             [
                 new Reference('versionbasedtestskipper.versiondetector'),
                 new Reference('versionbasedtestskipper.constraintmatcher')
             ]
+        ));
+
+        $container->setDefinition('versionbasedtestskipper.testfactory', new Definition(
+            'Cjm\Behat\TestFactory'
         ));
 
         $container->setDefinition('versionbasedtestskipper.versiondetector', new Definition(

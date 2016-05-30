@@ -9,26 +9,27 @@ use Behat\Testwork\Environment\Environment;
 use Behat\Testwork\Tester\Result\TestResult;
 use Behat\Testwork\Tester\Setup\Setup;
 use Behat\Testwork\Tester\Setup\Teardown;
+use Cjm\Behat\TestFactory;
 use Cjm\SemVer\ConstraintMatcher;
 use Cjm\SemVer\Version;
 use Cjm\SemVer\VersionDetector;
+use Cjm\Testing\SemVer\Test;
 use Cjm\Testing\SemVer\TestMatcher;
+use Cjm\Testing\SemVer\VersionBasedTestMatcher;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 class SkippingScenarioTesterSpec extends ObjectBehavior
 {
     function let (
-        ScenarioTester $inner, VersionDetector $versionDetector, ConstraintMatcher $constraintMatcher,
-        ScenarioInterface $scenario
+        ScenarioTester $inner, TestMatcher $testMatcher, TestFactory $testFactory
     )
     {
-        $testMatcher = new TestMatcher($versionDetector->getWrappedObject(), $constraintMatcher->getWrappedObject());
-        $this->beConstructedWith($inner, $testMatcher);
+        $testFactory->fromScenario(Argument::any())->willReturn(Test::taggedWith([]));
 
-        $versionDetector->getVersion()->willReturn(Version::fromString('5.6.0'));
+        $testMatcher->matches(Argument::any())->willReturn(true);
 
-        $scenario->getTags()->willReturn([]);
+        $this->beConstructedWith($inner, $testMatcher, $testFactory);
     }
 
     function it_is_a_scenario_tester()
@@ -48,13 +49,12 @@ class SkippingScenarioTesterSpec extends ObjectBehavior
     }
 
     function it_skips_setup_when_versions_do_not_match(
-        ScenarioTester $inner,
+        ScenarioTester $inner, TestMatcher $testMatcher,
         Environment $env, FeatureNode $feature, ScenarioInterface $scenario,
         Setup $result
     )
     {
-        $scenario->getTags()->willReturn(['php:~7.0']);
-
+        $testMatcher->matches(Argument::any())->willReturn(false);
         $inner->setUp($env, $feature, $scenario, true)->willReturn($result);
 
         $this->setup($env, $feature, $scenario, false)->shouldReturn($result);
@@ -72,13 +72,12 @@ class SkippingScenarioTesterSpec extends ObjectBehavior
     }
 
     function it_skips_the_test_when_versions_do_not_match(
-        ScenarioTester $inner,
+        ScenarioTester $inner, TestMatcher $testMatcher,
         Environment $env, FeatureNode $feature, ScenarioInterface $scenario,
         TestResult $result
     )
     {
-        $scenario->getTags()->willReturn(['php:~7.0']);
-
+        $testMatcher->matches(Argument::any())->willReturn(false);
         $inner->test($env, $feature, $scenario, true)->willReturn($result);
 
         $this->test($env, $feature, $scenario, false)->shouldReturn($result);
@@ -96,13 +95,12 @@ class SkippingScenarioTesterSpec extends ObjectBehavior
     }
 
     function it_skips_teardown_when_versions_do_not_match(
-        ScenarioTester $inner,
+        ScenarioTester $inner, TestMatcher $testMatcher,
         Environment $env, FeatureNode $feature, ScenarioInterface $scenario,
         TestResult $testResult, Teardown $result
     )
     {
-        $scenario->getTags()->willReturn(['php:~7.0']);
-
+        $testMatcher->matches(Argument::any())->willReturn(false);
         $inner->tearDown($env, $feature, $scenario, true, $testResult)->willReturn($result);
 
         $this->tearDown($env, $feature, $scenario, false, $testResult)->shouldReturn($result);

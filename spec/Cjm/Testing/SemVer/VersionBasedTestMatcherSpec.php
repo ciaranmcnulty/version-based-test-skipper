@@ -11,7 +11,7 @@ use Cjm\Testing\SemVer\Test;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class TestMatcherSpec extends ObjectBehavior
+class VersionBasedTestMatcherSpec extends ObjectBehavior
 {
     public function let(VersionDetector $versionProvider, ConstraintMatcher $constraintMatcher)
     {

@@ -8,7 +8,7 @@ use Behat\Gherkin\Node\TableNode;
 use Cjm\SemVer\Version;
 use Cjm\Testing\SemVer\Tag;
 use Cjm\Testing\SemVer\Test;
-use Cjm\Testing\SemVer\TestMatcher;
+use Cjm\Testing\SemVer\VersionBasedTestMatcher;
 
 /**
  * Defines application features from the specific context.
@@ -51,7 +51,7 @@ class CoreContext implements Context, SnippetAcceptingContext
      */
     public function iRunTheTests()
     {
-        $matcher = new TestMatcher(
+        $matcher = new VersionBasedTestMatcher(
             new \Cjm\Fake\SemVer\VersionDetector($this->version),
             new \Cjm\Fake\SemVer\ConstraintMatcher()
         );

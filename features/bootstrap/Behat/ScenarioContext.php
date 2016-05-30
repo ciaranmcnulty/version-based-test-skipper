@@ -3,6 +3,7 @@
 namespace Behat;
 
 use Behat\Behat\Tester\Exception\PendingException;
+use Behat\Behat\Tester\ScenarioTester as ScenarioTesterInterface;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\FeatureNode;
@@ -13,11 +14,12 @@ use Behat\Testwork\Environment\StaticEnvironment;
 use Behat\Testwork\Suite\GenericSuite;
 use Behat\Testwork\Tester\Result\TestResult;
 use Cjm\Behat\Tester\SkippingScenarioTester;
+use Cjm\Behat\TestFactory;
 use Cjm\Composer\ConstraintMatcher;
 use Cjm\Fake\Behat\ScenarioTester;
 use Cjm\Php\VersionDetector;
 use Cjm\SemVer\Version;
-use Cjm\Testing\SemVer\TestMatcher;
+use Cjm\Testing\SemVer\VersionBasedTestMatcher;
 use Composer\Semver\Semver;
 
 /**
@@ -25,12 +27,9 @@ use Composer\Semver\Semver;
  */
 class ScenarioContext implements Context
 {
-    /**
-     * @var ScenarioTester
-     */
-    private $tester;
     private $version;
     private $scenario;
+    private $testResult;
 
     /**
      * @Given I have a test tagged :tag
@@ -53,13 +52,19 @@ class ScenarioContext implements Context
      */
     public function iRunTheTests()
     {
-        $this->tester = new SkippingScenarioTester(
+        $tester = new SkippingScenarioTester(
             new ScenarioTester(),
-            new TestMatcher(
+            new VersionBasedTestMatcher(
                 new VersionDetector(),
                 new ConstraintMatcher(new Semver())
-            )
+            ),
+            new TestFactory()
         );
+        $env = new StaticEnvironment(new GenericSuite('',[]));
+        $feature = new FeatureNode('','',[],null,[],'','en','','');
+        $skip = false;
+
+        $this->testResult =  $tester->test($env, $feature, $this->scenario, $skip);
     }
 
     /**
@@ -67,9 +72,7 @@ class ScenarioContext implements Context
      */
     public function theTestShouldNotBeSkipped()
     {
-        $testResult = $this->execute();
-
-        if (!$testResult->isPassed()) {
+        if (!$this->testResult->isPassed()) {
             throw new \Exception('Scenario was not passed as expected');
         }
     }
@@ -79,24 +82,9 @@ class ScenarioContext implements Context
      */
     public function theTestShouldBeSkipped()
     {
-        $testResult = $this->execute();
-
-        if ($testResult->getResultCode() !== TestResult::SKIPPED) {
+        if ($this->testResult->getResultCode() !== TestResult::SKIPPED) {
             throw new \Exception('Scenario was not skipped as expected');
         }
     }
 
-    /**
-     * Exercises the scenario and returns the result
-     *
-     * @return TestResult
-     */
-    private function execute()
-    {
-        $env = new StaticEnvironment(new GenericSuite('',[]));
-        $feature = new FeatureNode('','',[],null,[],'','en','','');
-        $skip = false;
-
-        return $this->tester->test($env, $feature, $this->scenario, $skip);
-    }
 }
