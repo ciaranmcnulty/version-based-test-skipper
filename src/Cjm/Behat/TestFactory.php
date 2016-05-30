@@ -5,12 +5,11 @@ namespace Cjm\Behat;
 use Behat\Gherkin\Node\FeatureNode;
 use Behat\Gherkin\Node\ScenarioInterface;
 use Behat\Gherkin\Node\TaggedNodeInterface;
+use Cjm\Testing\SemVer\Tag;
 use Cjm\Testing\SemVer\Test;
 
 class TestFactory
 {
-    private $tagConstructor = ['Cjm\Testing\Semver\Tag', 'fromString'];
-
     /**
      * @return Test
      */
@@ -18,7 +17,9 @@ class TestFactory
     {
         return Test::taggedWith(
             array_map(
-                $this->tagConstructor,
+                function($tag) {
+                    return Tag::fromString($tag);
+                },
                 $taggedNode->getTags()
             )
         );
