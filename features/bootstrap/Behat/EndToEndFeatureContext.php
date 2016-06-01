@@ -18,7 +18,7 @@ class EndToEndFeatureContext implements Context
      */
     public function iHaveATestTagged($tag)
     {
-        if ($tag == "php:~5.6") {
+        if ($tag == "php:~5.0") {
             $this->feature = 'features/end-to-end-php5-test.feature';
         } elseif ($tag == "php:~7.0") {
             $this->feature = 'features/end-to-end-php7-test.feature';
@@ -28,11 +28,11 @@ class EndToEndFeatureContext implements Context
     }
 
     /**
-     * @Given the current version of PHP is :version
+     * @Given the current major version of PHP is :version
      */
     public function theCurrentVersionOfPhpIs($version)
     {
-        if (PHP_VERSION != $version) {
+        if (floor(PHP_VERSION) != floor($version)) {
             throw new \Exception('Can only run end-to-end if PHP version matches ' . $version);
         }
     }
@@ -43,16 +43,6 @@ class EndToEndFeatureContext implements Context
     public function iRunTheTests()
     {
         $this->output = shell_exec('bin/behat -c "features/bootstrap/dummy/behat.yml" features/bootstrap/dummy/' . $this->feature);
-    }
-
-    /**
-     * @Then the test should not be skipped
-     */
-    public function theTestShouldNotBeSkipped()
-    {
-        if (!preg_match('/1 passed/', $this->output)) {
-            throw new \Exception('Test was unexpectedly not passed');
-        }
     }
 
     /**

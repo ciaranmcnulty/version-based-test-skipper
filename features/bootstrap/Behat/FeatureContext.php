@@ -37,7 +37,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @Given the current version of PHP is :version
+     * @Given the current major version of PHP is :version
      */
     public function theCurrentVersionOfPhpIs($version)
     {
