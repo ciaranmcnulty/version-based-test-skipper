@@ -31,7 +31,7 @@ final class Test
      */
     public function getConstraints()
     {
-        $constraints = [];
+        $constraints = array();
 
         foreach ($this->tags as $tag) {
             if ($constraint = $tag->getConstraint()) {

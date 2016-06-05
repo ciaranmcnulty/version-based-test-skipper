@@ -35,11 +35,11 @@ class CoreContext implements Context, SnippetAcceptingContext
      */
     public function iHaveATestTagged($tagString)
     {
-        $this->scenario = Test::taggedWith([Tag::fromString($tagString)]);
+        $this->scenario = Test::taggedWith(array(Tag::fromString($tagString)));
     }
 
     /**
-     * @Given the current version of PHP is :version
+     * @Given the current major version of PHP is :version
      */
     public function theCurrentVersionOfPhpIs($version)
     {

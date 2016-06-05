@@ -33,11 +33,11 @@ class ScenarioContext implements Context
      */
     public function iHaveATestTagged($tag)
     {
-        $this->scenario = new ScenarioNode('title', [$tag], [], '', 0);
+        $this->scenario = new ScenarioNode('title', array($tag), array(), '', 0);
     }
 
     /**
-     * @Given the current version of PHP is :version
+     * @Given the current major version of PHP is :version
      */
     public function theCurrentVersionOfPhpIs($version)
     {
@@ -57,8 +57,8 @@ class ScenarioContext implements Context
             ),
             new TestFactory()
         );
-        $env = new StaticEnvironment(new GenericSuite('',[]));
-        $feature = new FeatureNode('','',[],null,[],'','en','','');
+        $env = new StaticEnvironment(new GenericSuite('',array()));
+        $feature = new FeatureNode('','',array(),null,array(),'','en','','');
         $skip = false;
 
         $this->testResult =  $tester->test($env, $feature, $this->scenario, $skip);

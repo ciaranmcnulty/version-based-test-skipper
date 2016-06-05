@@ -25,7 +25,7 @@ class SkippingScenarioTesterSpec extends ObjectBehavior
         ScenarioTester $inner, TestMatcher $testMatcher, TestFactory $testFactory
     )
     {
-        $testFactory->fromTaggedNode(Argument::any())->willReturn(Test::taggedWith([]));
+        $testFactory->fromTaggedNode(Argument::any())->willReturn(Test::taggedWith(array()));
         $testMatcher->matches(Argument::any())->willReturn(true);
 
         $this->beConstructedWith($inner, $testMatcher, $testFactory);
