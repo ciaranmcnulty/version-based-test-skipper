@@ -21,7 +21,7 @@ class SkippingFeatureTesterSpec extends ObjectBehavior
         SpecificationTester $inner, TestMatcher $testMatcher, TestFactory $testFactory
     )
     {
-        $testFactory->fromTaggedNode(Argument::any())->willReturn(Test::taggedWith([]));
+        $testFactory->fromTaggedNode(Argument::any())->willReturn(Test::taggedWith(array()));
         $testMatcher->matches(Argument::any())->willReturn(true);
 
 

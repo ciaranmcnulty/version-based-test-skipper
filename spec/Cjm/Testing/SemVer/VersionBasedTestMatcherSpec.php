@@ -23,7 +23,7 @@ class VersionBasedTestMatcherSpec extends ObjectBehavior
         $versionProvider->getVersion()->willReturn(Version::fromString('5.7.1'));
         $constraintMatcher->match(Constraint::fromString('~5.6'), Version::fromString('5.7.1'))->willReturn(true);
 
-        $this->matches(Test::taggedWith([Tag::fromString('php:~5.6')]))->shouldReturn(true);
+        $this->matches(Test::taggedWith(array(Tag::fromString('php:~5.6'))))->shouldReturn(true);
     }
 
     function it_doesn_not_match_a_scenario_tagged_with_incompatible_constraints(VersionDetector $versionProvider, ConstraintMatcher $constraintMatcher)
@@ -31,6 +31,6 @@ class VersionBasedTestMatcherSpec extends ObjectBehavior
         $versionProvider->getVersion()->willReturn(Version::fromString('5.7.1'));
         $constraintMatcher->match(Constraint::fromString('~7.0'), Version::fromString('5.7.1'))->willReturn(false);
 
-        $this->matches(Test::taggedWith([Tag::fromString('php:~7.0')]))->shouldReturn(false);
+        $this->matches(Test::taggedWith(array(Tag::fromString('php:~7.0'))))->shouldReturn(false);
     }
 }

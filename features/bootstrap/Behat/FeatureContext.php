@@ -33,7 +33,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function iHaveATestTagged($tag)
     {
-        $this->feature = new FeatureNode('title', '', [$tag], null,[],'','en','',1);
+        $this->feature = new FeatureNode('title', '', array($tag), null,array(),'','en','',1);
     }
 
     /**
@@ -57,7 +57,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
             ),
             new TestFactory()
         );
-        $env = new StaticEnvironment(new GenericSuite('',[]));
+        $env = new StaticEnvironment(new GenericSuite('',array()));
 
         $this->testResult = $tester->test($env, $this->feature, false);
     }

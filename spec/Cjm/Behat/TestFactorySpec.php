@@ -13,15 +13,15 @@ class TestFactorySpec extends ObjectBehavior
 {
     function it_can_create_a_test_from_a_scenario_with_tags(ScenarioInterface $scenario)
     {
-        $scenario->getTags()->willReturn(['foo', 'bar']);
+        $scenario->getTags()->willReturn(array('foo', 'bar'));
 
-        $this->fromTaggedNode($scenario)->shouldBeLike(Test::taggedWith([Tag::fromString('foo'), Tag::fromString('bar')]));
+        $this->fromTaggedNode($scenario)->shouldBeLike(Test::taggedWith(array(Tag::fromString('foo'), Tag::fromString('bar'))));
     }
 
     function it_can_create_a_test_from_a_feature_with_tags(FeatureNode $feature)
     {
-        $feature->getTags()->willReturn(['foo', 'bar']);
+        $feature->getTags()->willReturn(array('foo', 'bar'));
 
-        $this->fromTaggedNode($feature)->shouldBeLike(Test::taggedWith([Tag::fromString('foo'), Tag::fromString('bar')]));
+        $this->fromTaggedNode($feature)->shouldBeLike(Test::taggedWith(array(Tag::fromString('foo'), Tag::fromString('bar'))));
     }
 }
