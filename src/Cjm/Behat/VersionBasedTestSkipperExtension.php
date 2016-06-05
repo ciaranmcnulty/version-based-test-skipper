@@ -49,28 +49,28 @@ class VersionBasedTestSkipperExtension implements Extension
     {
         $container->setDefinition('versionbasedtestskipper.tester.scenario.skipping', new Definition(
             'Cjm\Behat\Tester\SkippingScenarioTester',
-            [
+            array(
                 new Reference('versionbasedtestskipper.tester.scenario.inner'),
                 new Reference('versionbasedtestskipper.testmatcher'),
                 new Reference('versionbasedtestskipper.testfactory')
-            ]
+            )
         ));
 
         $container->setDefinition('versionbasedtestskipper.tester.specification.skipping', new Definition(
             'Cjm\Behat\Tester\SkippingFeatureTester',
-            [
+            array(
                 new Reference('versionbasedtestskipper.tester.specification.inner'),
                 new Reference('versionbasedtestskipper.testmatcher'),
                 new Reference('versionbasedtestskipper.testfactory')
-            ]
+            )
         ));
 
         $container->setDefinition('versionbasedtestskipper.testmatcher', new Definition(
             'Cjm\Testing\SemVer\VersionBasedTestMatcher',
-            [
+            array(
                 new Reference('versionbasedtestskipper.versiondetector'),
                 new Reference('versionbasedtestskipper.constraintmatcher')
-            ]
+            )
         ));
 
         $container->setDefinition('versionbasedtestskipper.testfactory', new Definition(
@@ -83,7 +83,7 @@ class VersionBasedTestSkipperExtension implements Extension
 
         $container->setDefinition('versionbasedtestskipper.constraintmatcher', new Definition(
             'Cjm\Composer\ConstraintMatcher',
-            [ new Reference('versionbasedtestskipper.composer.semver') ]
+            array( new Reference('versionbasedtestskipper.composer.semver') )
         ));
 
         $container->setDefinition('versionbasedtestskipper.composer.semver', new Definition(
