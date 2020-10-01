@@ -2,20 +2,20 @@ default:
   suites:
     core:
       contexts: [ CoreContext ]
-      paths:    [ %paths.base%/features/skipping ]
+      paths:    [ "%paths.base%/features/skipping" ]
     behat-scenario:
       contexts: [ Behat\ScenarioContext ]
-      paths:    [ %paths.base%/features/skipping ]
+      paths:    [ "%paths.base%/features/skipping" ]
     behat-feature:
       contexts: [ Behat\FeatureContext ]
-      paths:    [ %paths.base%/features/skipping ]
+      paths:    [ "%paths.base%/features/skipping" ]
     behat-scenario-endtoend:
       filters:
         tags: "@smoke"
       contexts: [ Behat\EndToEndScenarioContext ]
-      paths:    [ %paths.base%/features/skipping ]
+      paths:    [ "%paths.base%/features/skipping" ]
     behat-feature-endtoend:
       filters:
         tags: "@smoke"
       contexts: [ Behat\EndToEndFeatureContext ]
-      paths:    [ %paths.base%/features/skipping ]
+      paths:    [ "%paths.base%/features/skipping" ]

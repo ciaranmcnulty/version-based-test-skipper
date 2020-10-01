@@ -18,10 +18,10 @@ class EndToEndFeatureContext implements Context
      */
     public function iHaveATestTagged($tag)
     {
-        if ($tag == "php:~5.0") {
-            $this->feature = 'features/end-to-end-php5-test.feature';
-        } elseif ($tag == "php:~7.0") {
+        if ($tag == "php:~7.0") {
             $this->feature = 'features/end-to-end-php7-test.feature';
+        } elseif ($tag == "php:~8.0") {
+            $this->feature = 'features/end-to-end-php8-test.feature';
         } else {
             throw new \Exception('Cannot find a fixture feature for tag ' . $tag);
         }
@@ -32,7 +32,7 @@ class EndToEndFeatureContext implements Context
      */
     public function theCurrentVersionOfPhpIs($version)
     {
-        if (floor(PHP_VERSION) != floor($version)) {
+        if (floor((float)PHP_VERSION) != floor((float)$version)) {
             throw new \Exception('Can only run end-to-end if PHP version matches ' . $version);
         }
     }

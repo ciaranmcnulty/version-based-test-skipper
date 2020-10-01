@@ -3,15 +3,16 @@
 namespace Cjm\Php;
 
 use Cjm\SemVer\Version;
+use PHPUnit\Framework\TestCase;
 
-class VersionDetectorTest extends \PHPUnit_Framework_TestCase
+class VersionDetectorTest extends TestCase
 {
     /**
      * @var \Cjm\SemVer\VersionDetector
      */
     private $versionDetector;
 
-    public function setUp()
+    public function setUp() : void
     {
         $this->versionDetector = new VersionDetector();
     }

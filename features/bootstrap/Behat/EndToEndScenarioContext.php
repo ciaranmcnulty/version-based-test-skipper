@@ -18,10 +18,10 @@ class EndToEndScenarioContext implements Context
      */
     public function iHaveATestTagged($tag)
     {
-        if ($tag == "php:~5.0") {
+        if ($tag == "php:~7.0") {
             $this->scenario = 'features/end-to-end-scenario-test.feature:6';
         }
-        elseif ($tag == "php:~7.0") {
+        elseif ($tag == "php:~8.0") {
             $this->scenario = 'features/end-to-end-scenario-test.feature:10';
         }
         else {

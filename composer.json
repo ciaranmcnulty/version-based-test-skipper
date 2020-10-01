@@ -3,7 +3,7 @@
     "name": "ciaranmcnulty/versionbasedtestskipper",
     "description": "Skip Behat scenarios based on PHP version",
     "require": {
-        "php" : "~5.3|~7.0",
+        "php" : "^7.2 || ^8.0",
         "composer/semver": "~1.4"
     },
     "license": "MIT",
@@ -22,8 +22,8 @@
         }
     },
     "require-dev": {
-        "phpspec/phpspec": "~2.4",
-        "behat/behat" : "~3.1",
-        "phpunit/phpunit" : "~4.0 || ~5.0"
+        "phpspec/phpspec": "^6.0",
+        "behat/behat" : "^3.0",
+        "phpunit/phpunit" : "^9.0"
     }
 }
