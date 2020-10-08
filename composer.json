@@ -24,6 +24,6 @@
     "require-dev": {
         "phpspec/phpspec": "^6.0",
         "behat/behat" : "^3.0",
-        "phpunit/phpunit" : "^9.0"
+        "phpunit/phpunit" : "^8.0 || ^9.0"
     }
 }
